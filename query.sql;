@@ -1,0 +1,25 @@
+-- Задача 1
+
+SELECT pilot_id FROM 'Пилоты'
+join 'Рейсы' on pilot_id = second_pilot_id
+where month(flight_dt) = 8
+group by pilot_id
+having count(flight_id) > 3;
+
+
+-- Задача 2
+SELECT pilot_id FROM 'Пилоты'
+join 'Рейсы' on pilot_id = second_pilot_id
+join 'Самолеты' on 'Самолеты'.plane_id = 'Рейсы'.plane_id
+where capacity > 30 and cargo_flg = 0 and age > 45
+group by pilot_id;
+
+-- Задача 3
+
+SELECT pilot_id, sum(capacity) FROM 'Пилоты'
+join 'Рейсы' on pilot_id = first_pilot_id
+join 'Самолеты' on 'Самолеты'.plane_id = 'Рейсы'.plane_id
+where cargo_flg = 1 and year(flight_dt) = year(curdate())
+group by pilot_id
+order by capacity desc
+limit 10;
